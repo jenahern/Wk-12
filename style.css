@@ -1,0 +1,36 @@
+body {
+  /* margin: 10;
+  box-sizing: border-box;
+  padding: 25px; */
+  background-color: rgb(157, 167, 187);
+  font-family: poppins, lora;
+  color: rgb(24, 24, 24);
+  font-size: 16px;
+}
+
+
+/* Custom Button */
+.btnMain {
+
+    font-weight: 400;
+    color: white;
+    background-color: lightseagreen;
+    border-color: rgb(24, 24, 24);
+    border-radius: .5rem;    
+}
+
+  .btnMain:hover {
+    color: rgb(24, 24, 24);
+    background-color: turquoise;
+    border-color: rgb(24, 24, 24);
+  }
+
+  .card {
+    background-image: linear-gradient(lightgrey, white);
+  }
+
+  .card-header{
+    background-color: lightseagreen;
+    color: white;
+  }
+

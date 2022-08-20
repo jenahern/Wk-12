@@ -1,65 +1,131 @@
-// JS Functions Needed
-//     submit form
-//     reset form
-//     read form data
-//     insert new data
-//     edit submission
-//     delete submission
+// Array to hold data input object
+const readLog = [
+  {
+    id: 1,
+    title: "The Enormous Egg",
+    author: "Oliver Butterworth",
+    date: "2022-08-20",
+  },
+];
 
-let sName = $("#sName");
-let bookTitle = $("#bookTitle");
-let author = $("#author");
-let date = $("#selectDate");
-let form = document.getElementById("addBook");
-// const form = $("#addBook");
-const modal = $("#logModal");
-const bookCard = $("#book-container");
-
-const readLog = [];
+const $bookCard = $("#book-container");
 
 $(() => {
   renderReadLog();
 });
 
 function renderReadLog() {
-  form.reset();
-  bookCard.append(readLog.map((book) => insertNewBook(book)));
-  readLog.push([sName, bookTitle, author, date]);
-  
-  
+  $bookCard.empty();
+  $bookCard.append(readLog.map((book) => insertNewBook(book)));
 }
 
 // add new book to card
 function insertNewBook(book) {
-  return $("<div/>").addClass("card mb-2").append(
-      $("<div/>").addClass("card-body mx-2").append(
-        $("<h3/>").addClass("card-title").text(bookTitle),
-        $("<p/>").addClass("name").text(sName),
-        $("<p/>").addClass("book").text(bookTitle),
-        $("<p/>").addClass("author").text(author),
-        $("<p/>").addClass("date").text(date),
-        $("<button/>").addClass("btnMain").text("Edit"),
-        $("<button/>").addClass("btnMain").text("Delete"),
+  return $("<div/>")
+    .addClass("col-4")
+    .append(
+      $("<div/>")
+        .addClass("card mb-2")
+        .append(
+          $("<div/>")
+            .addClass("card-body mx-2")
+            .append(
+              $("<h4/>")
+                .addClass("card-header mb-2")
+                .text("Book Number: " + book.id),
+              
+              $("<p/>")
+                .addClass("title")
+                .text("Book Title: " + book.title),
+              $("<p/>")
+                .addClass("author")
+                .text("Author: " + book.author),
+              $("<p/>")
+                .addClass("date")
+                .text("Date Completed: " + book.date),
+              $("<button/>")
+                .addClass("btnMain")
+                .text("Edit")
+                .on("click", () => onEdit(book.id)),
+              $("<button/>")
+                .addClass("btnMain ms-3")
+                .text("Delete")
+                .on("click", () => onDelete(book.id))
+            )
         )
-        ) 
-            
-   }
-
-// console.log(readLog);
-// add into HTML onclick="addBookBtnClick()"
-function addBookBtnClick() {
-  renderReadLog();
-  console.log(readLog);
-  
-
+    );
 }
 
-// function onDelete() {
-//   const indexToDelete = readLog.findIndex((book) => book.id === bookId);
-//   readLog.splice(indexToDelete, 1);
-//   renderReadLog();
-// }
+// Button Functions and Listening
 
-// // function onEdit(){
+let $bookTitle = $("#bookTitle");
+let $author = $("#author");
+let $date = $("#selectDate");
 
-// // insertNewBook();
+const logModal = new bootstrap.Modal("#logModal");
+const logModalTitle = $("#log-modal-title");
+const addFormBtn = $("#btnAdd");
+const btnSave = $("#btnSave");
+editBookId = null;
+
+// open the add book form modal
+function startAddBook() {
+  logModal.show();
+  // clear form
+  $bookTitle.val("");
+  $author.val("");
+  $date.val("");
+
+  logModalTitle.text("Add New Book");
+  addFormBtn.show();
+  btnSave.hide();
+}
+
+// add new book from btn
+function addBookBtnClick() {
+  logModal.hide();
+  logModalTitle.text("Add New Book");
+
+  // create/add new book data to array
+  readLog.push({
+    id: readLog[readLog.length - 1].id + 1, // hack from Natalie
+    title: $bookTitle.val(),
+    author: $author.val(),
+    readDate: $date.val(),
+  });
+  renderReadLog();
+}
+
+function onDelete(bookId) {
+  const indexToDelete = readLog.findIndex((book) => book.id === bookId);
+  readLog.splice(indexToDelete, 1);
+  renderReadLog();
+}
+
+function onEdit(bookId) {
+  // find book id
+  const book = readLog.find((book) => book.id === bookId);
+  logModal.show();
+  logModalTitle.text("Edit " + book.title);
+
+  // update edits book info
+  $bookTitle.val(book.title);
+  $author.val(book.author);
+  $date.val(book.date);
+  // indentify which book to update
+  editBookId = book.id;
+
+  // hide add/show btns
+  addFormBtn.hide();
+  btnSave.show();
+}
+
+function onSaveEdit() {
+  const book = readLog.find((book) => book.id === editBookId);
+  book.title = $bookTitle.val();
+  book.author = $author.val();
+  book.date = $date.val();
+
+  renderReadLog();
+  logModal.hide();
+}

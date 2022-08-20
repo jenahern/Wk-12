@@ -12,27 +12,37 @@
 </head>
 
 <body>
+
+    <!-- Open Modal to access form -->
+
     <div class="container-md mt-5">
-    <div id="book-container">
-        <div class="card mb-2 ">
+        <div class="card mb-2 mx-2">
             <div class="card-body mx-2">
-                <h3 class="card-title">Log Your Books Here</h3>
+                <h3 class="card-header mb-2">Add Books to Your Reading Log</h3>
+                <h5 class="card-title">Treasure Tickets are available for every 5 books you log!</h3>
+                    <p>Our in-class read aloud novels count for 1 book.</p>
+
+
+                    <input type="button" class="btnMain" value="Add New Book" id="btnStart" onclick="startAddBook()">
+            </div>
+        </div>
+
+        <!-- Card holding Books for Reading Log -->
+        <div class="container-md mt-5">
+            <div class="row" id="book-container">
+                <!-- <div class="col-4">    -->
+                <!-- <h3 class="card-title">Log Your Books Here</h3>
                 <p class="name">Student Name</p>
                 <p class="book">Book Title</p>
                 <p class="author">Author</p>
                 <p class="date">Date Completed</p>
                 <button class="btnMain" type="button" id="btnEdit">Edit</button>
-                <button class="btnMain" type="button" id="btnDelete">Delete</button>
+                <button class="btnMain" type="button" id="btnDelete">Delete</button> -->
             </div>
         </div>
     </div>
-</div>
-<!-- Only Here for Testing and Building Purposes -->
-<div class="col mx-3 mb-2">
-    
-    <input type="button" class="btnMain" value="Access Add a Book Form" id="btnView" data-bs-toggle="modal"
-        data-bs-target="#logModal">
-</div>
+
+
 
 
     <!-- Form -->
@@ -41,65 +51,61 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Reading Log</h5>
+                    <h5 id="log-modal-title" class="log-title"></h5>
+
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
-                    <div class="container-md mt-5">
+                    <div class="container-md">
                         <div class="row mx-2">
                             <div class="col-md">
-                
-                                <div class="card">
+
+                                <div class="card mb-2">
                                     <h3 class="card-header mt-2 mx-3">Book Tracker</h3>
                                     <div class="card-body mx-3">
                                         <h5 class="card-title">Log your completed books</h5>
                                         <p>Treasure Tickets are available for every 5 books you log!</p>
                                         <form class="row" id="addBook">
                                     </div>
-                
-                                    <div class="col mx-3">
-                                        <label for="inputText" class="form-label">Student Name</label>
-                                        <input type="name" class="form-control" id="sName">
-                                    </div>
-                
-                                    <div class="col mx-3">
+
+                                    <div class="col mx-3 mb-2">
                                         <label for="inputText" class="form-label">Book Title</label>
                                         <input type="title" class="form-control" id="bookTitle">
                                     </div>
-                
-                                    <div class="col mx-3">
+
+                                    <div class="col mx-3 mb-2">
                                         <label for="inputText" class="form-label">Author</label>
                                         <input type="text" class="form-control" id="author">
                                     </div>
-                
-                                    <div class="col  mx-3">
+
+                                    <div class="col mx-3 mb-2">
                                         <label for="selectDate">Select Date Completed</label>
                                         <input id="selectDate" class="form-control" type="date" />
-                                        <span id="selectDateSelected"></span>
                                     </div>
-                
+
                                     <br>
                                     <div class="col mx-3 mb-2">
-                                        <input type="button" class="btnMain" value="Add Book" id="btnAdd" onclick="addBookBtnClick()">
-                                        <input type="button" class="btnMain" value="Input Form" id="btnView" data-bs-toggle="modal"
-                                            data-bs-target="#logModal">
+                                        <input type="button" class="btnMain" value="Add New Book" id="btnAdd"
+                                            onclick="addBookBtnClick()">
+                                        <div>
+
+                                        </div>
                                     </div>
-                
+                                    <br>
                                 </div>
                             </div>
-                            <br>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnSave" onclick="onSaveEdit()">Save
+                                edits</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
                         </div>
                     </div>
-
                 </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
 
 
 
